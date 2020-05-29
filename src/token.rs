@@ -6,6 +6,7 @@ use std::fmt::Display;
 use std::iter::FromIterator;
 use std::mem;
 use std::ops::{Deref, DerefMut};
+use serde::{Deserialize, Serialize};
 
 use itertools::Itertools;
 
@@ -71,7 +72,7 @@ impl From<TokenBuilder> for Token {
     }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Token {
     form: String,
     lemma: Option<String>,
@@ -173,7 +174,7 @@ impl Token {
 ///
 /// In the CoNLL-X specification, these are morphological features of the
 /// token. Typically, the features are a list or a key-value mapping.
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Features {
     inner: BTreeMap<String, Option<String>>,
 }

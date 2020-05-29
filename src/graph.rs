@@ -8,11 +8,12 @@ use std::ops::{Index, IndexMut};
 use petgraph::graph::{node_index, DiGraph, NodeIndices, NodeWeightsMut};
 use petgraph::visit::EdgeRef;
 use petgraph::Direction;
+use serde::{Deserialize, Serialize};
 
 use crate::token::Token;
 
 /// Dependency graph node.
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum Node {
     /// Root node.
     Root,
@@ -52,7 +53,7 @@ impl Node {
 ///
 /// A dependency triple consists of: a head index; a dependent index; and
 /// an optional dependency label.
-#[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd, Serialize, Deserialize)]
 pub struct DepTriple<S> {
     head: usize,
     dependent: usize,
@@ -96,7 +97,7 @@ where
 /// layers in a CoNLL-X graph. This enum is public because the underlying
 /// `DiGraph` can be retrieved using the `get_ref` and `into_inner` methods
 /// of `Sentence`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum Projectivity {
     Projective,
     NonProjective,
@@ -116,7 +117,7 @@ pub type Edge = (Projectivity, Option<String>);
 /// `DiGraph` data structure that enforces variants such as
 /// single-headedness. The `into_inner`/`get_ref` methods can
 /// be used to unwrap or get a reference to the wrapped graph.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Sentence(DiGraph<Node, Edge>);
 
 #[allow(clippy::len_without_is_empty)]
