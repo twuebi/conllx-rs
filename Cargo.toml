@@ -17,7 +17,7 @@ exclude = [
 [dependencies]
 failure = "0.1"
 itertools = "0.8"
-petgraph = {version="0.4", features = ["serde-1"]}
+petgraph = {version="0.5", features = ["serde-1"]}
 serde = { version = "1.0", features = ["derive"] }
 
 
